@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -23,6 +26,11 @@
             android:name="com.example.calibracao.ModeloCameraActivity"
             android:exported="false"
             android:label="Calibração de Câmera"
+            android:theme="@style/Theme.Calibracao" />
+        <activity
+            android:name="com.example.calibracao.OrbTrackingActivity"
+            android:exported="false"
+            android:label="ORB Real-Time Tracking"
             android:theme="@style/Theme.Calibracao" />
     </application>
 

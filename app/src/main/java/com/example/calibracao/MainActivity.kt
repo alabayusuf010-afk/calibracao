@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
@@ -35,8 +36,11 @@ class MainActivity : ComponentActivity() {
             CalibracaoTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Dashboard(
-                        onStart = {
+                        onStartCalibration = {
                             startActivity(Intent(this, ModeloCameraActivity::class.java))
+                        },
+                        onStartOrbTracking = {
+                            startActivity(Intent(this, OrbTrackingActivity::class.java))
                         },
                         modifier = Modifier.padding(innerPadding)
                     )
@@ -47,7 +51,11 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Dashboard(onStart: () -> Unit, modifier: Modifier = Modifier) {
+fun Dashboard(
+    onStartCalibration: () -> Unit,
+    onStartOrbTracking: () -> Unit,
+    modifier: Modifier = Modifier
+) {
     Surface(
         modifier = modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.background
@@ -75,7 +83,7 @@ fun Dashboard(onStart: () -> Unit, modifier: Modifier = Modifier) {
             Spacer(modifier = Modifier.height(64.dp))
             
             Text(
-                text = "Perform precision geometric calibration of your device's camera sensor for 3D reconstruction and tracking.",
+                text = "Precision geometric calibration and real-time feature tracking for 3D reconstruction.",
                 style = MaterialTheme.typography.bodyMedium,
                 textAlign = TextAlign.Center,
                 modifier = Modifier.padding(horizontal = 16.dp)
@@ -84,7 +92,7 @@ fun Dashboard(onStart: () -> Unit, modifier: Modifier = Modifier) {
             Spacer(modifier = Modifier.height(48.dp))
             
             Button(
-                onClick = onStart,
+                onClick = onStartCalibration,
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(56.dp)
@@ -93,6 +101,18 @@ fun Dashboard(onStart: () -> Unit, modifier: Modifier = Modifier) {
             }
             
             Spacer(modifier = Modifier.height(16.dp))
+
+            Button(
+                onClick = onStartOrbTracking,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(56.dp),
+                colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary)
+            ) {
+                Text("REAL-TIME ORB TRACKING", fontWeight = FontWeight.Bold)
+            }
+            
+            Spacer(modifier = Modifier.height(32.dp))
             
             Text(
                 text = "v2.0.0 Professional Edition",
